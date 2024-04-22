@@ -71,12 +71,23 @@ impl<T> LinkedList<T> {
     }
 	pub fn merge(list_a:LinkedList<T>,list_b:LinkedList<T>) -> Self
 	{
-		//TODO
-		Self {
-            length: 0,
+        let length = list_a.length + list_b.length;
+
+        let ret = Self {
+            length,
             start: None,
             end: None,
-        }
+        };
+
+        let mut cur: Option<NonNull<Node<T>>> = None;
+        let mut p1: Option<NonNull<Node<T>>> = list_a.start;
+        let mut p2: Option<NonNull<Node<T>>> = list_b.start;
+
+        // loop {
+        //
+        // }
+
+        ret
 	}
 }
 

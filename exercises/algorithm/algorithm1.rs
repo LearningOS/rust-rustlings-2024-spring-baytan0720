@@ -79,10 +79,6 @@ impl<T> LinkedList<T> {
             end: None,
         };
 
-        let mut cur: Option<NonNull<Node<T>>> = None;
-        let mut p1: Option<NonNull<Node<T>>> = list_a.start;
-        let mut p2: Option<NonNull<Node<T>>> = list_b.start;
-
         // loop {
         //
         // }

@@ -2,7 +2,6 @@
 	single linked list merge
 	This problem requires you to merge two ordered singly linked lists into one ordered singly linked list
 */
-// I AM NOT DONE
 
 use std::fmt::{self, Display, Formatter};
 use std::ptr::NonNull;
@@ -29,13 +28,13 @@ struct LinkedList<T> {
     end: Option<NonNull<Node<T>>>,
 }
 
-impl<T> Default for LinkedList<T> {
+impl<T: std::cmp::PartialOrd + Clone> Default for LinkedList<T> {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl<T> LinkedList<T> {
+impl<T: std::cmp::PartialOrd + Clone> LinkedList<T> {
     pub fn new() -> Self {
         Self {
             length: 0,
@@ -69,19 +68,33 @@ impl<T> LinkedList<T> {
             },
         }
     }
-	pub fn merge(list_a:LinkedList<T>,list_b:LinkedList<T>) -> Self
+	pub fn merge(mut list_a:LinkedList<T>,mut list_b:LinkedList<T>) -> Self
 	{
-        let length = list_a.length + list_b.length;
+        let mut ret = LinkedList::<T>::new();
 
-        let ret = Self {
-            length,
-            start: None,
-            end: None,
-        };
-
-        // loop {
-        //
-        // }
+        let mut idx_a = 0;
+        let mut idx_b = 0;
+        loop {
+            let p1 = list_a.get(idx_a);
+            let p2 = list_b.get(idx_b);
+            if p1.is_some() && p2.is_some() {
+                if p1.unwrap() < p2.unwrap() {
+                    idx_a += 1;
+                    ret.add(p1.unwrap().clone());
+                } else {
+                    idx_b += 1;
+                    ret.add(p2.unwrap().clone());
+                }
+            } else if p1.is_some() {
+                idx_a += 1;
+                ret.add(p1.unwrap().clone());
+            } else if p2.is_some() {
+                idx_b += 1;
+                ret.add(p2.unwrap().clone());
+            } else {
+                break
+            }
+        }
 
         ret
 	}
